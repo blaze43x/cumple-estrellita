@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <title>Feliz Cumpleaños</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="css/mobile.css"
+      media="only screen and (max-width: 768px)"
+    />
+  </head>
+  <body>
+    <!--Confeti Atras-->
+    <canvas id="canvas1"></canvas>
+
+    <div class="contenedor">
+      <div class="portaretrato-torta-caja">
+        <div class="torta-cumpleaños">
+          <div class="torta">
+            <div class="chocolate"></div>
+          </div>
+          <div class="vela"></div>
+          <div class="llama"></div>
+        </div>
+
+        <div class="caja-wrapper">
+          <div class="caja">
+            <div class="cinta-de-regalo">
+              <div class="cinta-de-regalo-izquierda"></div>
+              <div class="cinta-de-regalo-derecha"></div>
+              <div class="cinta-de-regalo-centro"></div>
+            </div>
+            <div class="regalos">
+              <div class="regalo-sombra"></div>
+            </div>
+            <div class="regalo"></div>
+            <div class="icono-estrella estrella1"></div>
+            <div class="icono-estrella estrella2"></div>
+            <div class="icono-estrella estrella3"></div>
+            <div class="icono-estrella estrella4"></div>
+            <div class="icono-estrella estrella5"></div>
+          </div>
+        </div>
+
+        <div class="happy-birthday">
+          <span class="happy-birthday-linea">Happy Birthday</span>
+          <span class="happy-birthday-nombre">Estrellita</span>
+        </div>
+      </div>
+
+      <!--Mesa-->
+      <div class="soporte"></div>
+    </div>
+
+    <!--Confeti Delante-->
+    <canvas id="canvas2"></canvas>
+
+    <!--Todo Oscuro-->
+    <audio id="soplido" src="/proyectos/Feliz Cumpleaños/recursos/soplar1.mp3" preload="auto"></audio>
+    <audio
+      id="cancion"
+      src="/proyectos/Feliz Cumpleaños/recursos/cancion.mp3"
+      preload="auto"
+    ></audio>
+    <div class="overlay"></div>
+
+    <!-- Carta Modal (después del overlay para quedar encima) -->
+    <div class="modal-carta" id="modalCarta">
+      <div class="contenido-carta">
+        <div class="carta">
+          <div class="carta-esquina carta-esquina-1"></div>
+          <div class="carta-esquina carta-esquina-2"></div>
+          <div class="carta-esquina carta-esquina-3"></div>
+          <div class="carta-esquina carta-esquina-4"></div>
+          <h2>Feliz cumpleaños estrellita</h2>
+          <div class="carta-divisor" aria-hidden="true">
+            <span class="carta-estrella-mini"></span>
+            <span class="carta-linea"></span>
+            <span class="carta-estrella-mini"></span>
+          </div>
+          <iframe
+            id="videoCarta"
+            class="carta-video"
+            title="Feliz cumpleaños estrellita"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+          <p class="video-error" id="videoError" hidden>
+            No se pudo cargar el video. Revisa el enlace en
+            <strong>js/config.js</strong>
+          </p>
+          <p class="firma">Con cariño de blaze43x</p>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/Confeti.js"></script>
+    <script src="js/Confeti2.js"></script>
+    <script src="js/Sorpresa.js"></script>
+  </body>
+</html>
+
+

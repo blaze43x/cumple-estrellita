@@ -1,0 +1,116 @@
+/*Evitamos el Resaltado Azul de los Moviles*/
+*:not(iframe):not(.carta):not(.carta *) {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+iframe,
+.carta-video,
+.llama {
+  pointer-events: auto !important;
+  touch-action: manipulation;
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+.caja-wrapper {
+  left: calc(50% + 10px);
+  transform: scale(0.7);
+  transform-origin: left bottom;
+}
+
+.portaretrato-torta-caja {
+  bottom: -42px;
+}
+
+/* Mesa */
+.soporte {
+  width: 300px;
+  bottom: -42px;
+}
+
+.soporte::before {
+  width: 100px;
+  height: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 18px;
+}
+
+.soporte::after {
+  width: 95px;
+  height: 1000px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/*Mensaje*/
+  .happy-birthday {
+    top: -140px;
+    font-size: 32px;
+  }
+
+.carta {
+  width: 94%;
+  max-width: 560px;
+  padding: 28px 24px;
+  animation: none;
+  transform: none;
+  margin: 0 auto;
+}
+
+.carta-video {
+  min-height: 180px;
+  max-height: 55vh;
+  pointer-events: auto;
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+
+.carta h2 {
+  font-size: 26px;
+}
+
+@media only screen and (max-width: 400px) {
+  .portaretrato-torta-caja {
+    bottom: -36px;
+  }
+
+  .caja-wrapper {
+    left: calc(50% + 6px);
+    transform: scale(0.58);
+  }
+
+  .soporte {
+    width: 260px;
+    bottom: -36px;
+  }
+
+  .happy-birthday {
+    font-size: 28px;
+    top: -125px;
+  }
+
+  .carta-esquina {
+    width: 16px;
+    height: 16px;
+  }
+
+  .carta {
+    width: 96%;
+    padding: 22px 18px;
+  }
+
+  .carta h2 {
+    font-size: 22px;
+  }
+
+  .carta-video {
+    min-height: 160px;
+    max-height: 48vh;
+  }
+}
