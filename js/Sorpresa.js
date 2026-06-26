@@ -59,9 +59,20 @@ function comandoYouTube(func) {
   );
 }
 
+function pausarConfeti() {
+  window.confetiFondo?.pausar();
+  window.confetiFrente?.pausar();
+}
+
+function reanudarConfeti() {
+  window.confetiFrente?.reanudar();
+  window.confetiFondo?.reanudar();
+}
+
 function abrirCarta() {
   document.body.classList.add("carta-abierta");
   modalCarta.classList.add("activo");
+  pausarConfeti();
   if (youtubeEmbedBase) {
     videoCarta.src = youtubeEmbedBase;
   }
@@ -71,6 +82,7 @@ function cerrarCarta() {
   document.body.classList.remove("carta-abierta");
   modalCarta.classList.remove("activo");
   comandoYouTube("pauseVideo");
+  reanudarConfeti();
 }
 
 regalo.addEventListener("click", abrirCarta);

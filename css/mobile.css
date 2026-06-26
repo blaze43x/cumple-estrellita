@@ -75,6 +75,48 @@ iframe,
   font-size: 26px;
 }
 
+/* Menos carga visual y de GPU en móvil */
+.caja-wrapper {
+  animation: regalo-destacar-mobile 3.6s ease-in-out infinite;
+}
+
+@keyframes regalo-destacar-mobile {
+  0%, 100% {
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
+  }
+
+  50% {
+    filter: drop-shadow(0 5px 12px rgba(0, 0, 0, 0.4))
+            drop-shadow(0 0 8px rgba(255, 215, 64, 0.35));
+  }
+}
+
+.cinta-de-regalo,
+.regalos,
+.regalo-sombra,
+.regalo,
+.icono-estrella {
+  animation-duration: 2.4s;
+}
+
+.llama {
+  animation-duration: 0.22s;
+}
+
+.happy-birthday {
+  animation-duration: 3.2s;
+}
+
+.carta-esquina {
+  animation-duration: 3s;
+}
+
+body.carta-abierta #canvas1,
+body.carta-abierta #canvas2 {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
 @media only screen and (max-width: 400px) {
   .portaretrato-torta-caja {
     bottom: -36px;

@@ -6,11 +6,14 @@ window.oncontextmenu = function () {
 
 const canvasConfeti2 = document.getElementById("canvas2");
 const ctxConfeti2 = canvasConfeti2.getContext("2d");
+const consultaMovil = window.matchMedia("(max-width: 768px)");
 
 let ancho2 = (canvasConfeti2.width = window.innerWidth);
 let alto2 = (canvasConfeti2.height = window.innerHeight);
-
 let estrellas2 = [];
+let resplandorActivo = !consultaMovil.matches;
+let animacionActiva = false;
+let frameId = null;
 
 const coloresEstrellas2 = [
   "#FFFFFF",
@@ -21,6 +24,10 @@ const coloresEstrellas2 = [
   "#E3F2FD",
   "#FFCDD2",
 ];
+
+function esMovil() {
+  return consultaMovil.matches;
+}
 
 function dibujarEstrella(ctx, x, y, radio, rotacion, color, opacidad) {
   ctx.save();
@@ -44,14 +51,18 @@ function dibujarEstrella(ctx, x, y, radio, rotacion, color, opacidad) {
 
   ctx.closePath();
   ctx.fillStyle = color;
-  ctx.shadowColor = color;
-  ctx.shadowBlur = radio * 3.5;
+
+  if (resplandorActivo) {
+    ctx.shadowColor = color;
+    ctx.shadowBlur = radio * 3.5;
+  }
+
   ctx.fill();
   ctx.restore();
 }
 
 function crearEstrellas2() {
-  const cantidad = 70;
+  const cantidad = esMovil() ? 28 : 70;
 
   for (let i = 0; i < cantidad; i++) {
     estrellas2.push({
@@ -69,6 +80,8 @@ function crearEstrellas2() {
 }
 
 function animarEstrellas2() {
+  if (!animacionActiva) return;
+
   ctxConfeti2.clearRect(0, 0, ancho2, alto2);
 
   for (let i = 0; i < estrellas2.length; i++) {
@@ -95,7 +108,24 @@ function animarEstrellas2() {
     if (estrella.y > alto2 + 12) estrella.y = -12;
   }
 
-  requestAnimationFrame(animarEstrellas2);
+  frameId = requestAnimationFrame(animarEstrellas2);
+}
+
+function iniciarAnimacion() {
+  if (animacionActiva) return;
+  animacionActiva = true;
+  animarEstrellas2();
+}
+
+function pausarAnimacion() {
+  animacionActiva = false;
+
+  if (frameId !== null) {
+    cancelAnimationFrame(frameId);
+    frameId = null;
+  }
+
+  ctxConfeti2.clearRect(0, 0, ancho2, alto2);
 }
 
 function redimensionarCanvas2() {
@@ -116,10 +146,19 @@ function redimensionarCanvas2() {
   }
 }
 
+consultaMovil.addEventListener("change", (evento) => {
+  resplandorActivo = !evento.matches;
+});
+
 window.addEventListener("resize", redimensionarCanvas2);
+
+window.confetiFrente = {
+  pausar: pausarAnimacion,
+  reanudar: iniciarAnimacion,
+};
 
 crearEstrellas2();
 
 setTimeout(() => {
-  animarEstrellas2();
+  iniciarAnimacion();
 }, 1500);

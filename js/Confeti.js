@@ -6,11 +6,14 @@ window.oncontextmenu = function () {
 
 const canvasConfeti = document.getElementById("canvas1");
 const ctxConfeti = canvasConfeti.getContext("2d");
+const consultaMovil = window.matchMedia("(max-width: 768px)");
 
 let ancho = (canvasConfeti.width = window.innerWidth);
 let alto = (canvasConfeti.height = window.innerHeight);
-
 let estrellas = [];
+let resplandorActivo = !consultaMovil.matches;
+let animacionActiva = false;
+let frameId = null;
 
 const coloresEstrellas = [
   "#FFFFFF",
@@ -22,6 +25,10 @@ const coloresEstrellas = [
   "#FFB7C5",
   "#F8BBD0",
 ];
+
+function esMovil() {
+  return consultaMovil.matches;
+}
 
 function dibujarEstrella(ctx, x, y, radio, rotacion, color, opacidad) {
   ctx.save();
@@ -45,14 +52,18 @@ function dibujarEstrella(ctx, x, y, radio, rotacion, color, opacidad) {
 
   ctx.closePath();
   ctx.fillStyle = color;
-  ctx.shadowColor = color;
-  ctx.shadowBlur = radio * 2.5;
+
+  if (resplandorActivo) {
+    ctx.shadowColor = color;
+    ctx.shadowBlur = radio * 2.5;
+  }
+
   ctx.fill();
   ctx.restore();
 }
 
 function crearEstrellas() {
-  const cantidad = 140;
+  const cantidad = esMovil() ? 55 : 140;
 
   for (let i = 0; i < cantidad; i++) {
     estrellas.push({
@@ -79,6 +90,8 @@ function pintarCielo() {
 }
 
 function animarEstrellas() {
+  if (!animacionActiva) return;
+
   pintarCielo();
 
   for (let i = 0; i < estrellas.length; i++) {
@@ -105,7 +118,24 @@ function animarEstrellas() {
     if (estrella.y > alto + 10) estrella.y = -10;
   }
 
-  requestAnimationFrame(animarEstrellas);
+  frameId = requestAnimationFrame(animarEstrellas);
+}
+
+function iniciarAnimacion() {
+  if (animacionActiva) return;
+  animacionActiva = true;
+  animarEstrellas();
+}
+
+function pausarAnimacion() {
+  animacionActiva = false;
+
+  if (frameId !== null) {
+    cancelAnimationFrame(frameId);
+    frameId = null;
+  }
+
+  pintarCielo();
 }
 
 function redimensionarCanvas() {
@@ -126,10 +156,19 @@ function redimensionarCanvas() {
   }
 }
 
+consultaMovil.addEventListener("change", (evento) => {
+  resplandorActivo = !evento.matches;
+});
+
 window.addEventListener("resize", redimensionarCanvas);
+
+window.confetiFondo = {
+  pausar: pausarAnimacion,
+  reanudar: iniciarAnimacion,
+};
 
 crearEstrellas();
 
 setTimeout(() => {
-  animarEstrellas();
+  iniciarAnimacion();
 }, 1500);
